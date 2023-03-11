@@ -2,10 +2,13 @@ import pygame
 import math
 
 FPS = 60
+PIXEL_PER_METER = 40
 
 class Brownian:
     def __init__(self, width=640, height=480):
         self.size = self.width, self.height = width, height
+
+        pygame.display.set_caption("Brownian Motion")
         self.screen = pygame.display.set_mode(self.size)
 
         self.robot = _Robot(self.width/2, self.height/2)
@@ -26,7 +29,6 @@ class Brownian:
             self.robot.draw(self.screen)
 
             pygame.display.flip()
-
 
 class _Robot:
     def __init__(self, x, y):
@@ -62,10 +64,10 @@ class _Robot:
 
             self.arrowPoints[i] = (self.x+xr, self.y+yr)
             
-
         # move
-        offsetX = self.v * math.cos(self.yaw) 
-        offsetY = self.v * math.sin(self.yaw)
+        d_shift = self.v / FPS * PIXEL_PER_METER 
+        offsetX = d_shift * math.cos(self.yaw) 
+        offsetY = d_shift * math.sin(self.yaw)
 
         self.x += offsetX
         self.y += offsetY
