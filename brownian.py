@@ -37,7 +37,7 @@ class Brownian:
 class _Engine:
     def __init__(self, collisionCall):
         self.FPS = 60
-        self.PIXEL_PER_METER = 40
+        self.PIXELS_PER_METER = 40
         self.size = self.WIDTH, self.HEIGHT = 640, 480
 
         pygame.display.set_caption("Brownian Motion")
@@ -97,7 +97,7 @@ class _Engine:
             self.onCollision()
 
     def getMotion(self):
-        d_shift = self.robot.v / self.FPS * self.PIXEL_PER_METER
+        d_shift = self.robot.v / self.FPS * self.PIXELS_PER_METER
         if d_shift == 0:
             return False, 0, 0
 
