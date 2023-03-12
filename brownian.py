@@ -16,13 +16,14 @@ class Brownian:
         self.engine.start()
 
     def onCollision(self):
-        print("Brownian collision")
-        self.engine.robot.v = 0.0
-        self.engine.robot.w = self.robot_w
         self.rotateThread.start() 
         self.rotateThread = threading.Thread(target=self.randomRotate)
 
     def randomRotate(self):
+        self.engine.robot.v = 0.0
+        time.sleep(0.1)
+        self.engine.robot.w = self.robot_w
+
         # math.pi / w = max_time
         x = random.uniform(0, 2*math.pi/self.robot_w)
         t = time.time()
