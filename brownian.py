@@ -51,6 +51,7 @@ class _Engine:
         self.done = False
 
     def start(self):
+        self.last_time = time.time()
         while not self.done:
             # Limit fps
             self.clock.tick(self.FPS)
@@ -62,12 +63,13 @@ class _Engine:
             self.screen.fill("white")
             self.robot.draw(self.screen)
             self.update()
+            self.last_time = time.time()
 
             pygame.display.flip()
 
     def update(self):
         # rotate
-        d_angle = self.robot.w / self.FPS
+        d_angle = self.robot.w * self.dt()
         
         self.robot.yaw += d_angle
         if self.robot.yaw > math.pi:
@@ -97,7 +99,7 @@ class _Engine:
             self.onCollision()
 
     def getMotion(self):
-        d_shift = self.robot.v / self.FPS * self.PIXELS_PER_METER
+        d_shift = self.robot.v * self.dt() * self.PIXELS_PER_METER
         if d_shift == 0:
             return False, 0, 0
 
@@ -143,6 +145,9 @@ class _Engine:
 
     def onCollision(self):
         self.collisionCall() 
+
+    def dt(self):
+        return time.time()-self.last_time
     
 class _Robot:
     def __init__(self, x, y):
