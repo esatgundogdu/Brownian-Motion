@@ -8,8 +8,8 @@ class Brownian:
 
         self.rotateThread = threading.Thread(target=self.randomRotate)
 
-        self.robot_v = 1.5
-        self.robot_w = 1.5
+        self.robot_v = 4.0
+        self.robot_w = 4.0
 
     def start(self):
         self.engine.robot.v = self.robot_v
